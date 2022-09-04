@@ -52,9 +52,9 @@ def generate_idea(industry_input,creativity_input):
     sample_outputs = model.generate(
         input_ids,
         do_sample=True, 
-        max_length=250, 
+        max_length=100, 
         temperature = creativity_input,
-        top_k=50, 
+        top_k=80, 
         top_p=0.95, 
         num_return_sequences=1
     )
