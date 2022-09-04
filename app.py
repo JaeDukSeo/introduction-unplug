@@ -80,7 +80,7 @@ if check_password() and load_model():
 
         with col2:
             # User input - The 'temperature' value representing the level of creativity
-            creativity_input = st.slider("Creativity", value = 0.5, key = "creativity_input", min_value=0.1, max_value=0.9)
+            creativity_input = st.slider("Creativity", value = 0.95, key = "creativity_input", min_value=0.1, max_value=1.0)
 
         generate_button = form.form_submit_button("Generate paragraph")
 
