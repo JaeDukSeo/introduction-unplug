@@ -60,7 +60,7 @@ def generate_idea(industry_input,creativity_input):
     )
     return tokenizer.decode(sample_outputs[0], skip_special_tokens=True)
 
-if load_model():
+if check_password() and load_model():
     st.title("🚀 AI Rich - The AI Unplugged Alpha 💪💪🏻💪🏽💪🏿")
 
     form = st.form(key="user_settings")
