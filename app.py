@@ -1,9 +1,10 @@
 import streamlit    as st
 import pandas       as pd
-import gpt_2_simple as gpt2
-from google_drive_downloader import GoogleDriveDownloader as gdd
-import tarfile
-import gdown
+import torch
+from simpletransformers.language_generation import LanguageGenerationModel, LanguageGenerationArgs
+
+global model
+model = None
 
 def check_password():
     """Returns `True` if the user had the correct password."""
@@ -33,20 +34,17 @@ def check_password():
         # Password correct.
         return True
 
-if check_password():
+def load_model():
+    global model
+    model = LanguageGenerationModel("gpt2", "General/my-awesome-model-unplugged",use_cuda=False)
+    return True
+
+if check_password() and load_model():
     st.title("AI Rich - The AI Unplugged Alpha")
     name = st.text_input("Enter the starting phrase", 'A high value male')
-    sess = gpt2.start_tf_sess()
-    gpt2.load_gpt2(sess, run_name='run1')
+    generated = model.generate("A high value male")
 
-    loaded = gpt2.generate(sess,
-              length=250,
-              temperature=0.7,
-              prefix="A high value man is",
-              nsamples=5,
-              batch_size=5
-              )
-    st.write(f"Hello {loaded}!")
+    st.write(f"Hello {generated}!")
 
     x = st.slider("Select an integer x", 0, 10, 1)
     y = st.slider("Select an integer y", 0, 10, 1)
